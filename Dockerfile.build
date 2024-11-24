@@ -1,0 +1,33 @@
+FROM gingersociety/vite-react-builder:latest 
+
+COPY . .
+
+# Set environment variables using build arguments
+ARG GINGER_TOKEN
+ARG AWS_ACCESS_KEY_ID
+ARG AWS_SECRET_ACCESS_KEY
+ARG AWS_DEFAULT_REGION
+ARG DISTRIBUTION_ID
+ARG BUCKET_ID
+
+ENV GINGER_TOKEN=$GINGER_TOKEN
+ENV AWS_ACCESS_KEY_ID=$AWS_ACCESS_KEY_ID
+ENV AWS_SECRET_ACCESS_KEY=$AWS_SECRET_ACCESS_KEY
+ENV AWS_DEFAULT_REGION=$AWS_DEFAULT_REGION
+ENV DISTRIBUTION_ID=$DISTRIBUTION_ID
+ENV BUCKET_ID=$BUCKET_ID
+
+# Run the ginger-connector.debian commands
+RUN ginger-auth token-login ${GINGER_TOKEN}
+RUN ginger-connector refer stage
+RUN ginger-connector connect stage
+
+# Install dependencies
+RUN pnpm i
+
+# Build the project
+RUN pnpm build
+
+RUN aws s3 cp dist/ s3://$BUCKET_ID/ --recursive
+
+RUN aws cloudfront create-invalidation --distribution-id $DISTRIBUTION_ID --paths "/*"

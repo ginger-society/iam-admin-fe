@@ -1,0 +1,22 @@
+lang = "TS"
+organization_id = "ginger-society"
+dir = "src/services"
+refs_file = "src/shared/references.ts"
+service_type = "Portal"
+
+[services."@ginger-society/IAMService"]
+dev = "http://localhost:8080/iam"
+stage = "https://api-staging.gingersociety.org/iam"
+stage_k8 = "http://iam-service-api-service/iam"
+
+[portals_refs."@ginger-society/iam-frontend-users"]
+dev = "http://localhost:3001"
+stage = "https://iam-staging.gingersociety.org"
+
+[ws_refs]
+
+[urls]
+stage = "https://app.example.org"
+dev = "http://localhost:3001"
+
+[urls_ws]
