@@ -1,6 +1,5 @@
 import { createHashRouter } from "react-router-dom";
 import { withAuthHOC } from "@ginger-society/ginger-ui";
-import IndexPage from "@/pages/Index";
 import HandleAuth from "@/pages/HandleAuth";
 import UserForm from "@/pages/users/form";
 import UsersList from "@/pages/users/list";
@@ -9,16 +8,12 @@ import AppForm from "@/pages/apps/form";
 import AppsList from "@/pages/apps/list";
 
 const AuthenticatedUserForm = withAuthHOC(UserForm);
-const AuthenticatedUsersList= withAuthHOC(UsersList);
+const AuthenticatedUsersList = withAuthHOC(UsersList);
 const AuthenticatedAppForm = withAuthHOC(AppForm);
-const AuthenticatedAppsList= withAuthHOC(AppsList);
+const AuthenticatedAppsList = withAuthHOC(AppsList);
 const AuthenticatedManageGroup = withAuthHOC(ManageGroup);
 
 const router = createHashRouter([
-  {
-    path: "/",
-    element: <IndexPage />,
-  },
   {
     path: "/users/edit/:id",
     element: <AuthenticatedUserForm />,
