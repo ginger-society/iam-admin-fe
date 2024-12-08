@@ -1,8 +1,13 @@
-lang = "TS"
-organization_id = "ginger-society"
-dir = "src/services"
-refs_file = "src/shared/references.ts"
-service_type = "Portal"
+allow_registration = true 
+dir = "src/services" 
+disabled = true 
+friendly_name = "IAM Admin portal" 
+lang = "TS" 
+organization_id = "ginger-society" 
+refs_file = "src/shared/references.ts" 
+service_type = "Portal" 
+sso_redirect_suffix = "/#/handle-auth/" 
+tnc_link = "https://gingersociety.org/terms-of-use" # if allow registration is true , then we should provide the tnc link
 
 [services."@ginger-society/IAMService"]
 dev = "http://localhost:8080/iam"
@@ -16,7 +21,7 @@ stage = "https://iam-staging.gingersociety.org"
 [ws_refs]
 
 [urls]
-stage = "https://app.example.org"
-dev = "http://localhost:3001"
+dev = "http://localhost:3003"
+stage = "https://iam-admin-staging.gingersociety.org"
 
 [urls_ws]

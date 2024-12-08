@@ -5,14 +5,15 @@ import { useParams } from "react-router-dom";
 import styles from './manageGroups.module.scss';
 import { IAMService } from "@/services";
 import router from "@/shared/router";
-  
+import { FaSearch } from "react-icons/fa";
+
 
 
 const ManageGroup = () => {
   const { show } = useSnackbar();
 
-  const [searchTxt , setSearchTxt] = useState<string>()
-  const {id} = useParams<{id: string}>()
+  const [searchTxt, setSearchTxt] = useState<string>()
+  const { id } = useParams<{ id: string }>()
 
   const paths: BreadcrumbItem[] = [
     { path: '/', label: 'Home' },
@@ -20,11 +21,14 @@ const ManageGroup = () => {
   ]
 
   const members = useMemo(() => {
-    
+
     if (id) {
-      setSearchTxt(id);
       return [
-        {emailId: 'email@server.com', isAdmin: false}
+        { emailId: 'email@server.com', isAdmin: false },
+        { emailId: 'email@server.com', isAdmin: false },
+        { emailId: 'email@server.com', isAdmin: true },
+        { emailId: 'email@server.com', isAdmin: false },
+        { emailId: 'email@server.com', isAdmin: false },
       ]
     }
   }, [id])
@@ -43,7 +47,7 @@ const ManageGroup = () => {
   };
 
   const updateMembership = async (userId: string, actionType: string) => {
-    
+
     if (!id) {
       return;
     }
@@ -70,36 +74,46 @@ const ManageGroup = () => {
   };
 
   const searchForGroup = () => {
-    router.navigate(`/manage-group/${searchTxt}` )
+    if (searchTxt) {
+      router.navigate(`/manage-group/${searchTxt}`)
+    }
   }
+
+  const searchForMember = () => {
+
+  };
 
   return (
     <Layout breadcrumbConfig={paths}>
       <Text tag="h2" size={TextSize.Large}>Manage Group</Text>
-      <div style={{width: '50%' , display: 'flex' , gap: '10px'}}>
-          <Input
-              onChange={({target: {value}}) => {setSearchTxt(value)}}
-              placeholder="Search..."
-              value={searchTxt}
-              type="text"
-              clearable={true}
-            />
-            <Button label="Search" onClick={searchForGroup} />
-        </div>
 
-        {id && members && members.map((member) => {
-          return (
-            <div className={styles["member-container"]}>
+      <div style={{ width: '50%' }}>
+        <Input
+          label="Search Member"
+          onChange={({ target: { value } }) => { setSearchTxt(value) }}
+          placeholder="Search for a member using name or email ID"
+          value={searchTxt}
+          type="text"
+          clearable={false}
+          endEnhancer={<FaSearch onClick={searchForMember} />}
+        />
+
+      </div>
+
+
+      {id && members && members.map((member) => {
+        return (
+          <div className={styles["member-container"]}>
             <Text>
               {member.emailId} ({member.isAdmin ? "Admin" : "Member"})
             </Text>
             <ConfirmationButton
               label={"Remove"}
               onClick={() => removeMember(member.emailId)}
-              title = "Are you sure ?"
-              description = "This is not reversible"
-              confirmButtonLabel= "Yes, I am sure"
-              okBtnType = {ButtonType.Danger}
+              title="Are you sure ?"
+              description="This is not reversible"
+              confirmButtonLabel="Yes, I am sure"
+              okBtnType={ButtonType.Danger}
             ></ConfirmationButton>
             {member.isAdmin ? (
               <Button
@@ -117,8 +131,8 @@ const ManageGroup = () => {
               />
             )}
           </div>
-          )
-        })}
+        )
+      })}
     </Layout>
   )
 }

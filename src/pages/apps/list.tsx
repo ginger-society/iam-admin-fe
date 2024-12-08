@@ -25,14 +25,17 @@ const AppsList = () => {
     <Layout breadcrumbConfig={paths}>
       <Text tag="h2" size={TextSize.Large}>Apps</Text>
       <div style={{ display: 'flex', flexDirection: 'column', gap: '20px' }}>
-        <div style={{ width: '50%' }}>
-          <Input
-            onChange={({ target: { value } }) => { setSearchTxt(value); }}
-            placeholder="Search..."
-            value={searchTxt}
-            type="text"
-            clearable={true}
-          />
+        <div style={{ display: 'flex', justifyContent: 'space-between' }}>
+          <div style={{ width: '50%' }}>
+            <Input
+              onChange={({ target: { value } }) => { setSearchTxt(value); }}
+              placeholder="Search..."
+              value={searchTxt}
+              type="text"
+              clearable={true}
+            />
+          </div>
+
         </div>
         <Table>
           <thead>
@@ -41,34 +44,24 @@ const AppsList = () => {
                 <br />Name
               </th>
               <th scope="col">Disabled</th>
-              <th scope="col">URLs</th>
-              <th scope="col">Manage Users</th>
               <th scope="col">Allow registration</th>
+              <th scope="col">Manage Users</th>
             </tr>
           </thead>
           <tbody>
-            <tr onClick={() => {router.navigate('/apps/edit/1')}}>
+            <tr >
               <td>iam-admin-staging <br />IAM Admin <br /> <img width={60} src="https://www.gingersociety.org/img/ginger_icon.png" alt="Logo" /></td>
               <td>No</td>
-              <td style={{fontSize: '14px'}}>
-                Dev: http://localhost:3003/#/handle-auth/ <br />
-                Stage : https://iam-admin-staging.gingersociety.org/handle-auth/ <br />
-                Prod : https://iam-admin.gingersociety.org/handle-auth/
-              </td>
-              <td><Button label="Manage"></Button></td>
               <td>No</td>
+              <td><Button label="Manage"></Button></td>
             </tr>
             <tr>
               <td>db-compose-test-env <br /> DB Compose Test Env <br /> <img width={60} src="https://www.gingersociety.org/img/ginger_icon.png" alt="Logo" /></td>
               <td>No</td>
-              <td style={{fontSize: '14px'}}>
-                Dev: http://localhost:3013/handle-auth/ <br />
-                Stage: https://db-compose-runtime-test-env-675766508318.asia-south1.run.app/handle-auth/
-              </td>
-              <td><Button label="Manage" onClick={(e) => {router.navigate('/manage-group/id');e?.stopPropagation()}}></Button></td>
               <td>Yes <br />
-              TnC : https://gingersociety.org/terms-of-use
+                TnC : https://gingersociety.org/terms-of-use
               </td>
+              <td><Button label="Manage" onClick={(e) => { router.navigate('/manage-group/id'); e?.stopPropagation() }}></Button></td>
             </tr>
             {/* Add more rows as needed */}
           </tbody>

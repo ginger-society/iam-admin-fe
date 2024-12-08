@@ -5,12 +5,12 @@ export const APP_ICON = "https://www.gingersociety.org/img/ginger-dev-portal-ico
 
 export const sideMenuOptions = [
 	{ id: 'users', label: <span>Users</span> },
-	{ id: 'groups', label: <span>Groups</span> },
 	{ id: 'apps', label: <span>Apps</span> },
+	{ id: 'groups', label: <span>Groups</span> },
 ]
 
-export const idPathMap: {[key: string]: string} = {
-	users : '/users',
+export const idPathMap: { [key: string]: string } = {
+	users: '/users',
 	groups: '/manage-group',
 	apps: '/apps'
 }

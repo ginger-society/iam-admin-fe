@@ -36,7 +36,9 @@ const UsersList = () => {
               type="text"
               clearable={true}
             />
+
           </div>
+          <Button type={ButtonType.Secondary} label="Create new user" />
         </div>
         <Table>
           <thead>
