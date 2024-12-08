@@ -1,0 +1,11 @@
+.member-container {
+  padding: 20px;
+  border: solid 1px var(--primary-color);
+  width: 100%;
+  margin-top: 20px;
+  display: flex;
+  flex-direction: column;
+  background-color: var(--primary-bg-color);
+  gap: 20px;
+  box-sizing: border-box;
+}

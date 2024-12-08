@@ -1,10 +1,18 @@
 import { createHashRouter } from "react-router-dom";
 import { withAuthHOC } from "@ginger-society/ginger-ui";
-import Home from "@/pages/Home";
 import IndexPage from "@/pages/Index";
 import HandleAuth from "@/pages/HandleAuth";
+import UserForm from "@/pages/users/form";
+import UsersList from "@/pages/users/list";
+import ManageGroup from "@/pages/manage-group";
+import AppForm from "@/pages/apps/form";
+import AppsList from "@/pages/apps/list";
 
-const AuthenticatedHome = withAuthHOC(Home);
+const AuthenticatedUserForm = withAuthHOC(UserForm);
+const AuthenticatedUsersList= withAuthHOC(UsersList);
+const AuthenticatedAppForm = withAuthHOC(AppForm);
+const AuthenticatedAppsList= withAuthHOC(AppsList);
+const AuthenticatedManageGroup = withAuthHOC(ManageGroup);
 
 const router = createHashRouter([
   {
@@ -12,8 +20,24 @@ const router = createHashRouter([
     element: <IndexPage />,
   },
   {
-    path: "/home",
-    element: <AuthenticatedHome />,
+    path: "/users/edit/:id",
+    element: <AuthenticatedUserForm />,
+  },
+  {
+    path: "/users",
+    element: <AuthenticatedUsersList />,
+  },
+  {
+    path: "/apps/edit/:id",
+    element: <AuthenticatedAppForm />,
+  },
+  {
+    path: "/apps",
+    element: <AuthenticatedAppsList />,
+  },
+  {
+    path: "/manage-group/:id?",
+    element: <AuthenticatedManageGroup />,
   },
   {
     path: "/handle-auth/:access_token/:refresh_token",

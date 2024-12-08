@@ -72,7 +72,7 @@ const HeaderContainer: React.FC<HeaderContainerProps> = ({ children }) => {
               ></img>
             }
             onLogout={logOut}
-            showThemeSwitcher={false}
+            showThemeSwitcher={true}
             arbitaryContent={children}
           />
         </>
