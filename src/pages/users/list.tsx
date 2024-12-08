@@ -5,7 +5,7 @@ import { useMemo, useState } from "react";
 import { FaArrowRight } from "react-icons/fa";
 
 const paths: BreadcrumbItem[] = [
-  { path: '/', label: 'Home' },
+  { path: '/users', label: 'Home' },
   { path: '/users', label: 'Users' },
 ];
 
@@ -38,7 +38,7 @@ const UsersList = () => {
             />
 
           </div>
-          <Button type={ButtonType.Secondary} label="Create new user" />
+          <Button type={ButtonType.Secondary} onClick={() => router.navigate('/users/new')} label="Create new user" />
         </div>
         <Table>
           <thead>

@@ -16,7 +16,7 @@ const ManageGroup = () => {
   const { id } = useParams<{ id: string }>()
 
   const paths: BreadcrumbItem[] = [
-    { path: '/', label: 'Home' },
+    { path: '/users', label: 'Home' },
     { path: '/manage-group', label: 'Manage Groups' },
   ]
 

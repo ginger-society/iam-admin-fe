@@ -6,7 +6,7 @@ import { FaSearch } from "react-icons/fa";
 
 
 const paths: BreadcrumbItem[] = [
-  { path: '/', label: 'Home' },
+  { path: '/users', label: 'Home' },
   { path: '/manage-group', label: 'Search Groups' },
 ]
 

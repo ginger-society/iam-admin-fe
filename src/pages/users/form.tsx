@@ -14,7 +14,7 @@ const UserForm = () => {
 
   const paths: BreadcrumbItem[] = useMemo(() => {
     return [
-      { path: '/', label: 'Home' },
+      { path: '/users', label: 'Home' },
       { path: '/users', label: 'Users' },
       { path: '', label: `Editing : ${id}` },
     ]
@@ -51,7 +51,7 @@ const UserForm = () => {
           checked={isAdmin}
           onChange={(checked) => setIsAdmin(checked)}
         />
-        <Button type={ButtonType.Primary} label="Save" />
+        <Button type={ButtonType.Primary} label={!id ? 'Create and Send Invite' : 'Save'} />
       </div>
     </Layout>
   )

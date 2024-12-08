@@ -5,7 +5,7 @@ import { useState } from "react";
 import { FaArrowRight } from "react-icons/fa";
 
 const paths: BreadcrumbItem[] = [
-  { path: '/', label: 'Home' },
+  { path: '/home', label: 'Home' },
   { path: '/apps', label: 'Apps' },
 ];
 

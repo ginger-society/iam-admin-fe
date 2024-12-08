@@ -18,6 +18,10 @@ const router = createHashRouter([
     element: <AuthenticatedUserForm />,
   },
   {
+    path: "/users/new",
+    element: <AuthenticatedUserForm />,
+  },
+  {
     path: "/users",
     element: <AuthenticatedUsersList />,
   },
