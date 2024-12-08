@@ -50,6 +50,7 @@ jobs:
             --build-arg AWS_SECRET_ACCESS_KEY=${{ secrets.AWS_SECRET_ACCESS_KEY }} \
             --build-arg AWS_DEFAULT_REGION=${{ secrets.AWS_DEFAULT_REGION }} \
             --build-arg DISTRIBUTION_ID=${{ secrets.DISTRIBUTION_ID }}
+            --build-arg BUCKET_ID=${{ secrets.BUCKET_ID }}
             --no-load
       - name: Report failure if Docker build fails
         if: failure()
