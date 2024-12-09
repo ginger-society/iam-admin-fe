@@ -16,7 +16,7 @@ const UserForm = () => {
     return [
       { path: '/users', label: 'Home' },
       { path: '/users', label: 'Users' },
-      { path: '', label: `Editing : ${id}` },
+      { path: '', label: id ? `Editing : ${id}` : 'Creating new' },
     ]
   }, [id])
 
