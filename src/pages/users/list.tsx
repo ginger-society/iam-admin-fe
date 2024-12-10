@@ -1,7 +1,9 @@
+import { IAMAdminService } from "@/services";
+import { UserResponse } from "@/services/IAMAdminService_client";
 import Layout from "@/shared/Layout";
 import router from "@/shared/router";
 import { BreadcrumbItem, Button, ButtonType, Checkbox, Input, Pagination, Table, Text, TextSize, Option, MultiSelect, ButtonSize } from "@ginger-society/ginger-ui";
-import { useMemo, useState } from "react";
+import { useEffect, useMemo, useState } from "react";
 import { FaArrowRight } from "react-icons/fa";
 
 const paths: BreadcrumbItem[] = [
@@ -11,6 +13,9 @@ const paths: BreadcrumbItem[] = [
 
 
 const UsersList = () => {
+
+  const [loading, setLoading] = useState<boolean>(false);
+  const [data, setData] = useState<UserResponse[]>([])
   const [state, setState] = useState<{ offset: number; limit: number }>({
     offset: 19,
     limit: 10
@@ -22,11 +27,28 @@ const UsersList = () => {
     setState({ offset, limit })
   }
 
+  const fetchData = async () => {
+    setLoading(true);
+    try {
+      const users = await IAMAdminService.adminGetPaginatedUsers({ page: 1, pageSize: 20 })
+      console.log(users)
+      setData(users.data);
+    } catch (error) {
+      console.error(error);
+    }
+    setLoading(false);
+  }
+
+  useEffect(() => {
+    fetchData();
+  }, [])
+
 
   return (
     <Layout breadcrumbConfig={paths}>
       <Text tag="h2" size={TextSize.Large}>Users</Text>
-      <div style={{ display: 'flex', flexDirection: 'column', gap: '20px' }}>
+      {loading && <Text>Loading...</Text>}
+      {!loading && <div style={{ display: 'flex', flexDirection: 'column', gap: '20px' }}>
         <div style={{ display: 'flex', justifyContent: 'space-between' }}>
           <div style={{ width: '50%' }}>
             <Input
@@ -51,83 +73,17 @@ const UsersList = () => {
             </tr>
           </thead>
           <tbody>
-            <tr onClick={() => router.navigate(`/users/edit/${1}`)}>
-              <td>Alfreds Futterkiste</td>
-              <td>Maria Anders</td>
-              <td>Yes</td>
-              <td>No</td>
-              <td><Button endEnhancer={<FaArrowRight />} size={ButtonSize.Small} type={ButtonType.Tertiary} label="View" onClick={(e) => { router.navigate('/users/manage-groups/1'); e?.stopPropagation() }}></Button></td>
-            </tr>
-            <tr>
-              <td>Centro comercial Moctezuma</td>
-              <td>Francisco Chang</td>
-              <td>Yes</td>
-              <td>No</td>
-              <td><Button endEnhancer={<FaArrowRight />} size={ButtonSize.Small} type={ButtonType.Tertiary} label="View"></Button></td>
-            </tr>
-            <tr>
-              <td>Ernst Handel</td>
-              <td>Roland Mendel</td>
-              <td>Yes</td>
-              <td>No</td>
-              <td><Button endEnhancer={<FaArrowRight />} size={ButtonSize.Small} type={ButtonType.Tertiary} label="View"></Button></td>
-            </tr>
-            <tr>
-              <td>Island Trading</td>
-              <td>Helen Bennett</td>
-              <td>Yes</td>
-              <td>No</td>
-              <td><Button endEnhancer={<FaArrowRight />} size={ButtonSize.Small} type={ButtonType.Tertiary} label="View"></Button></td>
-            </tr>
-            <tr>
-              <td>Centro comercial Moctezuma</td>
-              <td>Francisco Chang</td>
-              <td>Yes</td>
-              <td>No</td>
-              <td><Button endEnhancer={<FaArrowRight />} size={ButtonSize.Small} type={ButtonType.Tertiary} label="View"></Button></td>
-            </tr>
-            <tr>
-              <td>Ernst Handel</td>
-              <td>Roland Mendel</td>
-              <td>Yes</td>
-              <td>No</td>
-              <td><Button endEnhancer={<FaArrowRight />} size={ButtonSize.Small} type={ButtonType.Tertiary} label="View"></Button></td>
-            </tr>
-            <tr>
-              <td>Magazzini Alimentari Riuniti</td>
-              <td>Giovanni Rovelli</td>
-              <td>Yes</td>
-              <td>No</td>
-              <td><Button endEnhancer={<FaArrowRight />} size={ButtonSize.Small} type={ButtonType.Tertiary} label="View"></Button></td>
-            </tr>
-            <tr>
-              <td>North/South</td>
-              <td>Simon Crowther</td>
-              <td>Yes</td>
-              <td>No</td>
-              <td><Button endEnhancer={<FaArrowRight />} size={ButtonSize.Small} type={ButtonType.Tertiary} label="View"></Button></td>
-            </tr>
-            <tr>
-              <td>Paris spécialités</td>
-              <td>Marie Bertrand</td>
-              <td>Yes</td>
-              <td>No</td>
-              <td><Button endEnhancer={<FaArrowRight />} size={ButtonSize.Small} type={ButtonType.Tertiary} label="View"></Button></td>
-            </tr>
-            <tr>
-              <td>Eastern Connection</td>
-              <td>Ann Devon</td>
-              <td>Yes</td>
-              <td>No</td>
-              <td><Button endEnhancer={<FaArrowRight />} size={ButtonSize.Small} type={ButtonType.Tertiary} label="View"></Button></td>
-            </tr>
-            <tr>
-              <td>Rattlesnake Canyon Grocery</td>
-              <td>Paula Wilson</td>
-              <td>Yes</td>
-              <td>No</td>
-              <td><Button endEnhancer={<FaArrowRight />} size={ButtonSize.Small} type={ButtonType.Tertiary} label="View"></Button></td>
-            </tr>
+            {data?.map((u) => {
+              return (
+                <tr onClick={() => router.navigate(`/users/edit/${u.emailId}`)}>
+                  <td>{u.firstName || 'NA'}</td>
+                  <td>{u.emailId}</td>
+                  <td>{u.isActive ? 'Yes' : 'No'}</td>
+                  <td>{u.isRoot ? 'Yes' : 'No'}</td>
+                  <td><Button endEnhancer={<FaArrowRight />} size={ButtonSize.Small} type={ButtonType.Tertiary} label="View"></Button></td>
+                </tr>
+              )
+            })}
           </tbody>
         </Table>
         <Pagination
@@ -136,7 +92,7 @@ const UsersList = () => {
           initialOffset={state.offset}
           onChange={handleOnChange}
         />
-      </div>
+      </div>}
     </Layout>
   )
 }
