@@ -2,7 +2,7 @@ import { IAMAdminService } from "@/services";
 import { UserResponse } from "@/services/IAMAdminService_client";
 import Layout from "@/shared/Layout";
 import { BreadcrumbItem, Button, ButtonType, Checkbox, Input, Text, TextSize } from "@ginger-society/ginger-ui";
-import { useMemo, useState } from "react";
+import { useCallback, useMemo, useState } from "react";
 import { useParams } from "react-router-dom";
 
 
@@ -26,18 +26,20 @@ const UserForm = () => {
     }
   }
 
-  const fetchUserData = async () => {
-    if (!id) {
-      return;
+  const fetchUserData = useCallback(() => {
+    async () => {
+      if (!id) {
+        return;
+      }
+      const data = await IAMAdminService.adminGetUserByEmail({ email: id })
+      setFirstName(data.firstName);
+      setMiddleName(data.middleName);
+      setLastName(data.lastName);
+      setIsActive(data.isActive);
+      setIsAdmin(data.isRoot);
+      setUserData(data);
     }
-    const data = await IAMAdminService.adminGetUserByEmail({ email: id })
-    setFirstName(data.firstName);
-    setMiddleName(data.middleName);
-    setLastName(data.lastName);
-    setIsActive(data.isActive);
-    setIsAdmin(data.isRoot);
-    setUserData(data);
-  };
+  }, [id]);
 
   const paths: BreadcrumbItem[] = useMemo(() => {
 
@@ -50,7 +52,7 @@ const UserForm = () => {
       { path: '/users', label: 'Users' },
       { path: '', label: id ? `Editing : ${id}` : 'Creating new' },
     ]
-  }, [id])
+  }, [id, fetchUserData])
 
   return (
     <Layout breadcrumbConfig={paths}>
