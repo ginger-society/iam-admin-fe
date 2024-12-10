@@ -32,9 +32,9 @@ const UserForm = () => {
         return;
       }
       const data = await IAMAdminService.adminGetUserByEmail({ email: id })
-      setFirstName(data.firstName);
-      setMiddleName(data.middleName);
-      setLastName(data.lastName);
+      setFirstName(data.firstName || undefined);
+      setMiddleName(data.middleName || undefined);
+      setLastName(data.lastName || undefined);
       setIsActive(data.isActive);
       setIsAdmin(data.isRoot);
       setUserData(data);
