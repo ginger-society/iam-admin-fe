@@ -28,26 +28,24 @@ const UsersList = () => {
     setState({ offset, limit });
   };
 
-  const fetchData = useCallback(() => {
-    async () => {
-      setLoading(true);
-      try {
-        const page = Math.floor(state.offset / state.limit) + 1;
-        const pageSize = state.limit;
+  const fetchData = async () => {
+    setLoading(true);
+    try {
+      const page = Math.floor(state.offset / state.limit) + 1;
+      const pageSize = state.limit;
 
-        const response = await IAMAdminService.adminGetPaginatedUsers({ page, pageSize, search: searchTxt });
-        setData(response.data);
-        setTotalRows(response.totalCount || 0);
-      } catch (error) {
-        console.error(error);
-      }
-      setLoading(false);
+      const response = await IAMAdminService.adminGetPaginatedUsers({ page, pageSize, search: searchTxt });
+      setData(response.data);
+      setTotalRows(response.totalCount || 0);
+    } catch (error) {
+      console.error(error);
     }
-  }, [searchTxt, state.limit, state.offset]);
+    setLoading(false);
+  };
 
   useEffect(() => {
-    fetchData();
-  }, [state, fetchData]); // Re-fetch data when pagination state changes
+    fetchData();// eslint-disable-next-line react-hooks/exhaustive-deps
+  }, []);
 
   return (
     <Layout breadcrumbConfig={paths}>
