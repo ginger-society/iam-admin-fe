@@ -5,7 +5,7 @@ import router from "@/shared/router";
 import {
   BreadcrumbItem, Button, ButtonType, Input, Pagination, Table, Text, TextSize, ButtonSize
 } from "@ginger-society/ginger-ui";
-import { useEffect, useState } from "react";
+import { useCallback, useEffect, useState } from "react";
 import { FaArrowRight } from "react-icons/fa";
 
 const paths: BreadcrumbItem[] = [
@@ -28,24 +28,26 @@ const UsersList = () => {
     setState({ offset, limit });
   };
 
-  const fetchData = async () => {
-    setLoading(true);
-    try {
-      const page = Math.floor(state.offset / state.limit) + 1;
-      const pageSize = state.limit;
+  const fetchData = useCallback(() => {
+    async () => {
+      setLoading(true);
+      try {
+        const page = Math.floor(state.offset / state.limit) + 1;
+        const pageSize = state.limit;
 
-      const response = await IAMAdminService.adminGetPaginatedUsers({ page, pageSize, search: searchTxt });
-      setData(response.data);
-      setTotalRows(response.totalCount || 0);
-    } catch (error) {
-      console.error(error);
+        const response = await IAMAdminService.adminGetPaginatedUsers({ page, pageSize, search: searchTxt });
+        setData(response.data);
+        setTotalRows(response.totalCount || 0);
+      } catch (error) {
+        console.error(error);
+      }
+      setLoading(false);
     }
-    setLoading(false);
-  };
+  }, [searchTxt, state.limit, state.offset]);
 
   useEffect(() => {
     fetchData();
-  }, [state]); // Re-fetch data when pagination state changes
+  }, [state, fetchData]); // Re-fetch data when pagination state changes
 
   return (
     <Layout breadcrumbConfig={paths}>
