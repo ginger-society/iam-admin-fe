@@ -41,7 +41,7 @@ const ManageGroup = () => {
   }
 
   useEffect(() => {
-    fetchMembers();
+    fetchMembers();// eslint-disable-next-line react-hooks/exhaustive-deps
   }, [id])
 
   const removeMember = async (userId: string) => {

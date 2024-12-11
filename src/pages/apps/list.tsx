@@ -84,7 +84,7 @@ const AppsList = () => {
                   <th>Client ID<br />Name</th>
                   <th>Disabled</th>
                   <th>Allow Registration</th>
-                  <th>Actions</th>
+                  <th>Access Control</th>
                 </tr>
               </thead>
               <tbody>
@@ -102,17 +102,18 @@ const AppsList = () => {
                       {app.allowRegistration ? 'Yes' : 'No'}
                       {app.tncLink && (
                         <>
-                          <br />TnC: <a href={app.tncLink} target="_blank" rel="noopener noreferrer">{app.tncLink}</a>
+                          <br />TnC: <a href={app.tncLink} target="_blank" rel="noopener noreferrer">Open in new tab</a>
                         </>
                       )}
                     </td>
                     <td>
-                      <Button
+                      {app.groupId && <Button
                         label="Manage Access"
                         onClick={() => {
                           router.navigate(`/manage-group/${app.groupId}`);
                         }}
-                      />
+                      />}
+                      {!app.groupId && <Text>Public App</Text>}
                     </td>
                   </tr>
                 ))}

@@ -26,19 +26,17 @@ const UserForm = () => {
     }
   }
 
-  const fetchUserData = useCallback(() => {
-    async () => {
-      if (!id) {
-        return;
-      }
-      const data = await IAMAdminService.adminGetUserByEmail({ email: id })
-      setFirstName(data.firstName || undefined);
-      setMiddleName(data.middleName || undefined);
-      setLastName(data.lastName || undefined);
-      setIsActive(data.isActive);
-      setIsAdmin(data.isRoot);
-      setUserData(data);
+  const fetchUserData = useCallback(async () => {
+    if (!id) {
+      return;
     }
+    const data = await IAMAdminService.adminGetUserByEmail({ email: id })
+    setFirstName(data.firstName || undefined);
+    setMiddleName(data.middleName || undefined);
+    setLastName(data.lastName || undefined);
+    setIsActive(data.isActive);
+    setIsAdmin(data.isRoot);
+    setUserData(data);
   }, [id]);
 
   const paths: BreadcrumbItem[] = useMemo(() => {
