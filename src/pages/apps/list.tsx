@@ -21,6 +21,7 @@ const AppsList = () => {
     limit: 10,
   });
 
+
   const [searchTxt, setSearchTxt] = useState<string>("");
 
   const handleOnChange = (limit: number, offset: number) => {
@@ -90,9 +91,11 @@ const AppsList = () => {
                 {data?.map((app) => (
                   <tr key={app.id}>
                     <td>
-                      <Text size={TextSize.Large}>{app.name}</Text><br />
-                      {app.clientId}<br />
-                      {app.logoUrl && <img width={60} src={app.logoUrl} alt={`${app.name} Logo`} />}
+                      <div style={{ display: 'flex', alignItems: 'center' }}>
+                        {app.logoUrl && <img width={60} src={app.logoUrl} alt={`${app.name} Logo`} />}
+                        <Text size={TextSize.Large}>{app.name}</Text><br />
+                      </div>
+                      ID : {app.clientId}
                     </td>
                     <td>{app.disabled ? 'Yes' : 'No'}</td>
                     <td>
@@ -105,7 +108,7 @@ const AppsList = () => {
                     </td>
                     <td>
                       <Button
-                        label="Manage"
+                        label="Manage Access"
                         onClick={() => {
                           router.navigate(`/manage-group/${app.groupId}`);
                         }}
