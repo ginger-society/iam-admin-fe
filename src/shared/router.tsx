@@ -5,12 +5,14 @@ import UserForm from "@/pages/users/form";
 import UsersList from "@/pages/users/list";
 import ManageGroup, { SearchGroup } from "@/pages/manage-group";
 import AppsList from "@/pages/apps/list";
+import Home from "@/pages/Home";
 
 const AuthenticatedUserForm = withAuthHOC(UserForm);
 const AuthenticatedUsersList = withAuthHOC(UsersList);
 const AuthenticatedAppsList = withAuthHOC(AppsList);
 const AuthenticatedManageGroup = withAuthHOC(ManageGroup);
 const AuthenticatedSearchGroup = withAuthHOC(SearchGroup);
+const AuthenticatedHome = withAuthHOC(Home);
 
 const router = createHashRouter([
   {
@@ -24,6 +26,10 @@ const router = createHashRouter([
   {
     path: "/users",
     element: <AuthenticatedUsersList />,
+  },
+  {
+    path: "/",
+    element: <AuthenticatedHome />,
   },
   {
     path: "/apps",
