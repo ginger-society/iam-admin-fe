@@ -4,7 +4,7 @@ import "../node_modules/@ginger-society/ginger-ui/dist/esm/index.css";
 import "./index.css";
 
 import router from "./shared/router";
-import { SnackbarProvider , SystemThemePreferred, AuthProvider} from "@ginger-society/ginger-ui";
+import { SnackbarProvider, SystemThemePreferred, AuthProvider } from "@ginger-society/ginger-ui";
 import { ValidateTokenResponse } from "./services/IAMService_client";
 import { IAMService } from "./services";
 import { GINGER_SOCIETY_IAM_FRONTEND_USERS } from "./shared/references";
@@ -24,16 +24,16 @@ const validateToken = async (): Promise<ValidateTokenResponse> => {
 const root = createRoot(rootElement);
 root.render(
   <AuthProvider<ValidateTokenResponse>
-      validateToken={validateToken}
-      navigateToLogin={() =>
-         window.location.href = `${GINGER_SOCIETY_IAM_FRONTEND_USERS}#${APP_ID}/login`
-      }
-      postLoginNavigate={() =>
-        router.navigate("/")
-      }
-    >
+    validateToken={validateToken}
+    navigateToLogin={() =>
+      window.location.href = `${GINGER_SOCIETY_IAM_FRONTEND_USERS}#${APP_ID}/login?returnUrl=${router.state.location.search}`
+    }
+    postLoginNavigate={() =>
+      router.navigate("/")
+    }
+  >
     <SnackbarProvider>
-      <SystemThemePreferred> 
+      <SystemThemePreferred>
         <RouterProvider router={router} />
       </SystemThemePreferred>
     </SnackbarProvider>
