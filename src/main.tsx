@@ -26,7 +26,7 @@ root.render(
   <AuthProvider<ValidateTokenResponse>
     validateToken={validateToken}
     navigateToLogin={() =>
-      window.location.href = `${GINGER_SOCIETY_IAM_FRONTEND_USERS}#${APP_ID}/login?returnUrl=${router.state.location.search}`
+      window.location.href = `${GINGER_SOCIETY_IAM_FRONTEND_USERS}#${APP_ID}/login?returnUrl=${router.state.location.pathname}`
     }
     postLoginNavigate={() =>
       router.navigate("/")
