@@ -9,8 +9,8 @@ importers:
   .:
     dependencies:
       '@ginger-society/ginger-ui':
-        specifier: ^0.66.0
-        version: 0.66.0(react-dom@18.2.0(react@18.2.0))(react@18.2.0)
+        specifier: ^0.67.0
+        version: 0.67.0(react-dom@18.2.0(react@18.2.0))(react@18.2.0)
       '@vitejs/plugin-react':
         specifier: 4.2.1
         version: 4.2.1(vite@5.2.0(@types/node@20.14.2)(sass@1.77.5))
@@ -518,8 +518,8 @@ packages:
     resolution: {integrity: sha512-fdI7VJjP3Rvc70lC4xkFXHB0fiPeojiL1PxVG6t1ZvXQrarj893PweuBTujxDUFk0Fxj4R7PIIAZ/aiiyZPZcg==}
     engines: {node: ^18.18.0 || ^20.9.0 || >=21.1.0}
 
-  '@ginger-society/ginger-ui@0.66.0':
-    resolution: {integrity: sha512-GAZJuN4ctd7Y7Sv1HjZxKuz7Qrc4tOMoWM+YbZD4AuYSZM2Tqb8hD0kgVFchdshrWL+9qp6vQVZkXaY7RKh7IA==}
+  '@ginger-society/ginger-ui@0.67.0':
+    resolution: {integrity: sha512-ixvnNCsbwbffWq5+qiz+eJarWDVPzrLH0YbXoqhbIf2pD0FmaI36jLcvrRz8K6tK1P6jPaOee7WHQI14z1GwZw==}
     engines: {node: '>=16'}
     peerDependencies:
       react: ^16.8.0 || ^17 || ^18
@@ -3710,7 +3710,7 @@ snapshots:
 
   '@eslint/js@9.4.0': {}
 
-  '@ginger-society/ginger-ui@0.66.0(react-dom@18.2.0(react@18.2.0))(react@18.2.0)':
+  '@ginger-society/ginger-ui@0.67.0(react-dom@18.2.0(react@18.2.0))(react@18.2.0)':
     dependencies:
       react: 18.2.0
       react-dom: 18.2.0(react@18.2.0)
