@@ -5,22 +5,32 @@ refs_file = "src/shared/references.ts"
 service_type = "Portal"
 
 [services."@ginger-society/IAMService"]
-stage_k8 = "http://iam-service-api-service/iam"
-dev = "http://localhost:8080/iam"
 stage = "https://api-staging.gingersociety.org/iam"
+prod = "https://api.gingersociety.org/iam"
+dev = "http://localhost:8080/iam"
+prod_k8 = "http://iam-service-api-service/iam"
+stage_k8 = "http://iam-service-api-service/iam"
 
 [services."@ginger-society/IAMAdminService"]
-stage = "https://api-staging.gingersociety.org/iam-admin"
 stage_k8 = "http://iam-service-api-service/iam-admin"
 dev = "http://localhost:8080/iam-admin"
+stage = "https://api-staging.gingersociety.org/iam-admin"
 
 [portals_refs."@ginger-society/iam-frontend-users"]
+prod = "https://iam.gingersociety.org"
 stage = "https://iam-staging.gingersociety.org"
 dev = "http://localhost:3001"
 
 [ws_refs."@ginger-society/IAMAdminService"]
-stage = ""
+stage_k8 = ""
 dev = ""
+stage = ""
+
+[ws_refs."@ginger-society/IAMService"]
+dev = ""
+stage = ""
+prod = ""
+prod_k8 = ""
 stage_k8 = ""
 
 [urls]
