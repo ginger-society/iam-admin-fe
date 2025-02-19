@@ -31,3 +31,20 @@ RUN pnpm build
 RUN aws s3 cp dist/ s3://$BUCKET_ID/ --recursive
 
 RUN aws cloudfront create-invalidation --distribution-id $DISTRIBUTION_ID --paths "/*"
+
+
+RUN ginger-connector refer prod
+RUN ginger-connector connect prod
+# Build the project
+RUN pnpm build
+# Production Stage: Serve with Nginx
+FROM nginx:alpine AS runner
+
+# Copy built frontend from the builder stage
+COPY --from=builder /app/dist /usr/share/nginx/html
+
+# Expose port 80
+EXPOSE 80
+
+# Run Nginx
+CMD ["nginx", "-g", "daemon off;"]
