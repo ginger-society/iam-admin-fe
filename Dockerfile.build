@@ -1,4 +1,4 @@
-FROM gingersociety/vite-react-builder:latest 
+FROM gingersociety/vite-react-builder:latest AS builder
 
 COPY . .
 
